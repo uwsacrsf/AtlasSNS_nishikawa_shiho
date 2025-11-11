@@ -24,14 +24,18 @@
     </head>
     <body>
         <header>
-            <h1><img src="images/atlas.png"></h1>
+            <h1>
+                <a href="http://127.0.0.1:8001/top">
+                 <img src="images/atlas.png">
+                </a>
+            </h1>
             <p>Social Network Service</p>
         </header>
         <div id="container">
             {{ $slot }}
         </div>
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="JavaScriptファイルのURL"></script>
-        <script src="JavaScriptファイルのURL"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="http://127.0.0.1:8001/js/app.js"></script>
+        <script src="{{ asset('js/script.js') }}"></script> ```
     </body>
 </html>

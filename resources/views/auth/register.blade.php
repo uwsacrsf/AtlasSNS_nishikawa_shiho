@@ -1,26 +1,57 @@
-<x-logout-layout>
-    <!-- 適切なURLを入力してください -->
-{!! Form::open(['url' => '〇〇']) !!}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtlasSNS ログイン</title>
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Tailwind CSSを使用している場合、またはViteを使用している場合は不要な場合があります -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+</head>
+<body class="login-body">
+    <div class="gradient-background">
+    <header class="login-header">
+            <h1 class="site-title">Atlas</h1>
+            <p class="site-subtitle">Social Network Service</p>
+        </header>
+<div class="login-container">
+<h2 class="welcome-message">新規ユーザー登録</h2>
 
-<h2>新規ユーザー登録</h2>
+<form method="POST" action="{{ route('register') }}" class="login-form">
+        @csrf
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
+        <div class="form-group">
+            <label for="username">ユーザー名</label>
+            <input type="text" name="username" id="username" value="{{ old('username') }}" required>
+            @error('username')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+        </div>
 
-{{ Form::label('メールアドレス') }}
-{{ Form::email('email',null,['class' => 'input']) }}
+        <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+            @error('email')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+        </div>
 
-{{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
+        <div class="form-group">
+            <label for="password">パスワード</label>
+            <input type="password" name="password" id="password" required>
+            @error('password')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+        </div>
 
-{{ Form::label('パスワード確認') }}
-{{ Form::text('password_confirmation',null,['class' => 'input']) }}
+        <div class="form-group">
+            <label for="password_confirmation">パスワード確認</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" required>
+        </div>
 
-{{ Form::submit('登録') }}
+        <button type="submit" class="login-button">新規登録</button>
 
-<p><a href="login">ログイン画面へ戻る</a></p>
-
-{!! Form::close() !!}
-
-
-</x-logout-layout>
+        <a href="{{ route('login') }}" class="register-link">ログイン画面へ戻る</a>
+    </form>
+</div>

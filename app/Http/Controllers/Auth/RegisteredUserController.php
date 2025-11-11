@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -30,17 +31,24 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'username' => ['required','string','min:2', 'max:12'],
+            'email' => ['required','unique:users','email','min:5','max:40'],
+            'password' => ['required','alpha_num','min:8', 'max:20','confirmed'],
+      ]);
         User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        Session::put('username', $request->username);
 
-        return redirect('added');
+        return redirect()->route('added');
     }
 
     public function added(): View
     {
-        return view('auth.added');
+        $username = Session::get('username');
+        return view('auth.added', compact('username'));
     }
 }
