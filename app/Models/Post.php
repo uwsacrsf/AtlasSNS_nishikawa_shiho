@@ -9,20 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends Model
 {
     use HasFactory;
-
-    /**
-     * マスアサインメントを許可するカラムを指定
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'user_id', // 投稿したユーザーのID
-        'post', // 投稿内容
+        'user_id',
+        'post',
     ];
 
-    /**
-     * この投稿を所有するユーザーを取得
-     */
-    public function user(): BelongsTo // ★このメソッドを追加！
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

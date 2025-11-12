@@ -1,4 +1,4 @@
-<x-login-layout>
+<x-login-layout :followingCount="$followingCount" :followerCount="$followerCount">
 <div class="following-head">
     <h2>フォローリスト</h2>
 
@@ -34,11 +34,5 @@
                 @endforeach
             </ul>
     </div>
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
 
 </x-login-layout>

@@ -1,10 +1,12 @@
-<x-login-layout>
+<x-login-layout :followingCount="$followingCount" :followerCount="$followerCount">
 
     <form class="search-form" action="{{ route('users.search') }}" method="GET">
         <div class="search-head">
         <input class="search-input" type="text" name="keyword" placeholder="ユーザー名"
                value="{{ old('keyword', $keyword ?? '') }}"></input>
-        <img src="images/search.png" type="submit"></img>
+               <button type="submit" class="search-button-icon">
+            <img src="{{ asset('images/search.png') }}" alt="検索">
+        </button>
         </div>
         @if (!empty($keyword))
             <div class="search-zone">

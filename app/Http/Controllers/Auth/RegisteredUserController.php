@@ -1,4 +1,4 @@
-<?php
+<?php /*ユーザー登録プロセス*/
 
 namespace App\Http\Controllers\Auth;
 
@@ -16,20 +16,13 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+    /*登録フォーム表示するメソッド*/
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.register'); /*表示するbladeファイル*/
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse /*登録後の処理*/
     {
         $request->validate([
             'username' => ['required','string','min:2', 'max:12'],
@@ -41,14 +34,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        Session::put('username', $request->username);
+        Session::put('username', $request->username); /*情報保存*/
 
         return redirect()->route('added');
     }
 
-    public function added(): View
+    public function added(): View /*登録完了後の画面*/
     {
-        $username = Session::get('username');
+        $username = Session::get('username'); /*保存したデータを取り出す*/
         return view('auth.added', compact('username'));
     }
 }

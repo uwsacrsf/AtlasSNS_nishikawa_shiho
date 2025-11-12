@@ -1,10 +1,10 @@
-<x-login-layout>
+<x-login-layout :followingCount="$followingCount" :followerCount="$followerCount">
 <div class="follower-head">
     <h2>フォロワーリスト</h2>
 
     <div class="follower-icons">
             @foreach ($followers as $followerUser)
-                    <a href="{{ route('users.showProfile', $followerUser) }}">
+                        <a href="{{ route('users.showProfile', $followerUser) }}">
                         <img src="{{ asset('images/' . ($followerUser->icon_image ?? 'default_profile_icon.png')) }}">
                     </a>
             @endforeach
@@ -12,7 +12,7 @@
 </div>
     <div class="post-list">
             <ul>
-                @foreach ($followersPosts as $post)
+                @foreach ($followersPosts as $post) <!-- フォロワーの投稿をループ処理 -->
                     <li>
                         <a href="{{ route('users.showProfile', $post->user) }}">
                             <img src="{{ asset('images/' . ($post->user->icon_image ?? 'default_profile_icon.png')) }}"
@@ -34,12 +34,4 @@
                 @endforeach
             </ul>
     </div>
-
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-
 </x-login-layout>

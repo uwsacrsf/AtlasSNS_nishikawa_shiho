@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -6178,8 +6178,6 @@ a.thumbnail:hover {
 }
 
 .alert-danger {
-  background-color: #f2dede;
-  border-color: #ebccd1;
   color: #a94442
 }
 

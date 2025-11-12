@@ -5,6 +5,12 @@
     @csrf
     <textarea name="post" placeholder="投稿内容を入力してください。"></textarea>
     <button type="submit" class="icon-button post-button-icon"></button>
+    @error('post')
+            <div class="alert-danger">{{
+            $message === 'The post field is required.' ? '投稿内容は必須項目です。'
+            : ($message === 'The post must not be greater than 150 characters.'
+                ? '投稿内容は150文字以内で入力してください。' : $message) }}</div>
+        @enderror
   </form>
   </div>
 
@@ -50,22 +56,18 @@
   <div id="editPostModal" class="modal">
     <div class="modal-content">
         <form id="editPostForm" method="POST">
-            @csrf
-            @method('PATCH')
+            @csrf <!--セキュリティ-->
+            @method('PATCH') <!--更新するためPATCHに偽造-->
 
             <input type="hidden" name="post_id" id="editPostId">
             <textarea name="post" id="editPostContent" rows="5"></textarea>
-
-            @error('post', 'update')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
 
             <button type="submit" class="edit-button"></button>
         </form>
     </div>
 </div>
 
-<script>
+<script>/*編集がクリックされたときの動作*/
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('editPostModal');
         const closeButton = document.querySelector('.close-button');
@@ -80,21 +82,13 @@
 
                 fetch(`/posts/${postId}/edit_data`)
                     .then(response => {
-                        if (!response.ok) {
-                            if (response.status === 403) {
-                                alert('他のユーザーの投稿は編集できません。');
-                            } else {
-                                alert('投稿データの取得に失敗しました。');
-                            }
-                            throw new Error('Network response was not ok.');
-                        }
                         return response.json();
                     })
                     .then(data => {
                         editPostIdField.value = data.id;
                         editPostContentField.value = data.post;
                         editPostForm.action = `/posts/${data.id}`;
-                        modal.style.display = 'block';
+                        modal.style.display = 'flex';
                     })
                     .catch(error => {
                         console.error('Error:', error);

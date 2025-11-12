@@ -1,4 +1,4 @@
-<x-login-layout>
+<x-login-layout :followingCount="$followingCount" :followerCount="$followerCount">
 <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
@@ -16,17 +16,11 @@
         <div class="form-item">
             <label for="email">メールアドレス</label>
             <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required></input>
-            @error('email')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
         </div>
 
         <div class="form-item">
             <label for="current_password">パスワード</label>
             <input type="password" name="current_password" id="current_password" >
-            @error('current_password')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
         </div>
 
         <div class="form-item">
@@ -37,17 +31,11 @@
     <div class="form-item">
         <label for="bio">自己紹介</label>
         <input type="text" name="bio" id="bio" rows="3" value="{{ old('bio', $user->bio) }}" required></input>
-        @error('bio')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
 
     <div class="form-item">
         <label for="icon_image_file">アイコン画像</label>
         <input type="file" name="icon_image_file" id="icon_image_file" accept="image/*">
-        @error('icon_image_file')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
 
     <div class="form-item-button">
